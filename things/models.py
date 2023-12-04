@@ -6,11 +6,14 @@ from django.core.exceptions import ValidationError
 # Create your models here.
 
 class Thing(models.Model):
-    name = models.CharField(max_length=30, unique=True)
-    description = models.TextField(max_length=121, blank=True)
+    name = models.CharField(max_length=30, unique=True, blank=False)
+    description = models.TextField(max_length=120, blank=True)
     quantity = models.IntegerField(default=0)
 
     def clean(self):
+        if len(self.description) > 120:
+            raise ValidationError("Description must not have more than 120 characters.")
+
         if not 0 <= self.quantity <= 100:
             raise ValidationError("Quantity must be between 0 and 100.")
 
