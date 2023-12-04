@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 
 class Thing(models.Model):
     name = models.CharField(max_length=30, unique=True)
-    description = models.TextField(max_length=120, blank=True)
+    description = models.TextField(max_length=121, blank=True)
     quantity = models.IntegerField(default=0)
 
     def clean(self):
